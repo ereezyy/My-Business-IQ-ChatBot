@@ -3,7 +3,7 @@ import { ChatMessages } from './ChatMessages';
 import { ChatInput } from '../ChatInput';
 import { ChatSuggestions } from './ChatSuggestions';
 import { useChatStore } from '../../store/chatStore';
-import { generateResponse } from '../../utils/ai';
+import { processMessage } from '../../utils/ai';
 
 export function ChatContainer() {
   const { isTyping, addMessage, setTyping } = useChatStore();
@@ -17,7 +17,7 @@ export function ChatContainer() {
     // Generate AI response
     setTyping(true);
     try {
-      const response = await generateResponse(content);
+      const response = await processMessage(content);
       addMessage({ role: 'assistant', content: response });
     } catch (error) {
       console.error('Error generating response:', error);
